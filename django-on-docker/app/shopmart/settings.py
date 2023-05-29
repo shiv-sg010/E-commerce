@@ -154,6 +154,11 @@ MESSAGE_TAGS = {
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'APP': {
+            'client_id': '52051066148-cmkl4i49jk11g4fsaqdb88b83usl9i1p.apps.googleusercontent.com',
+            'secret': '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',
+            'key': '',
+        },
         'SCOPE': [
             'profile',
             'email'],

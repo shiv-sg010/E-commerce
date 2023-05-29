@@ -80,7 +80,7 @@ def wishlist(request):
                                 template = render_to_string(
                                     'home/customer_email.html', {'product': product, 'wishlist_obj': w_obj})
                                 email_customer = EmailMessage(
-                                    'Shopmart.in purchase made', template, settings.EMAIL_HOST_USER, [request.user.email])
+                                    'Shopmart.in wishlist item', template, settings.EMAIL_HOST_USER, [request.user.email])
                                 email_customer.fail_silently = False
                                 email_customer.send()
 

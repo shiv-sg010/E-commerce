@@ -168,31 +168,27 @@ def remove_cart(request, cart_item_id):
 
 @login_required
 def cart(request):
-    try:
-        if Cart.objects.filter(user=request.user, is_paid=False).exists():
-            if CartItems.objects.filter(cart=Cart.objects.get(user=request.user, is_paid=False)).exists():
-                cart_obj = Cart.objects.filter(
-                    user=request.user, is_paid=False)
-                c_items = CartItems.objects.all()
-                units = list(range(1, 11))
-                cartitems = []
-                count = 0
-                for product in c_items:
-                    for obj in cart_obj:
-                        if product.cart == obj:
-                            count += product.quantity
-                            cartitems.append(product)
-                context = {'cartitems': cartitems, 'cart_obj': cart_obj,
-                           'units': units, 'count': count}
-                return render(request, 'customers/cart.html', context)
-            else:
-                messages.info(request, f'{"Your Cart is Empty."}')
-                return render(request, 'customers/cart.html', {'cartitems': '', 'cart_obj': '', 'units': '', 'count': 0})
+    if Cart.objects.filter(user=request.user, is_paid=False).exists():
+        if CartItems.objects.filter(cart=Cart.objects.get(user=request.user, is_paid=False)).exists():
+            cart_obj = Cart.objects.filter(user=request.user, is_paid=False)
+            c_items = CartItems.objects.all()
+            units = list(range(1, 11))
+            cartitems = []
+            count = 0
+            for product in c_items:
+                for obj in cart_obj:
+                    if product.cart == obj:
+                        count += product.quantity
+                        cartitems.append(product)
+            context = {'cartitems': cartitems,
+                       'cart_obj': cart_obj, 'units': units, 'count': count}
+            return render(request, 'customers/cart.html', context)
         else:
             messages.info(request, f'{"Your Cart is Empty."}')
             return render(request, 'customers/cart.html', {'cartitems': '', 'cart_obj': '', 'units': '', 'count': 0})
-    except Exception as e:
-        print(e)
+    else:
+        messages.info(request, f'{"Your Cart is Empty."}')
+        return render(request, 'customers/cart.html', {'cartitems': '', 'cart_obj': '', 'units': '', 'count': 0})
 
 
 def c_role(request):

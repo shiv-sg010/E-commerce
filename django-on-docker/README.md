@@ -1,4 +1,4 @@
-# dvm2
+
 # E-Commerce Web Application
 
 > A basic online marketplace. 
